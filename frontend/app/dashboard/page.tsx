@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import AppShell from "@/components/AppShell";
+import { EngagementRateBarChart } from "@/components/EngagementRateBarChart";
 import { campaigns, getToken, insights, type Campaign, type InsightSnapshot } from "@/lib/api";
 
 export default function DashboardPage() {
@@ -39,33 +40,32 @@ export default function DashboardPage() {
             href={`/campaigns/${c.id}?tab=summary`}
             className="rounded-lg border border-surface-border bg-white p-5 shadow-card transition hover:border-brand-200"
           >
-            <h3 className="font-semibold text-gray-900">{c.title}</h3>
-            <p className="mt-1 line-clamp-2 text-sm text-gray-500">{c.brief_text}</p>
-            <div className="mt-4 flex items-center justify-between text-xs text-gray-400">
+            <h3 className="font-semibold text-neutral-900">{c.title}</h3>
+            <p className="mt-1 line-clamp-2 text-sm text-neutral-500">{c.brief_text}</p>
+            <div className="mt-4 flex items-center justify-between text-xs text-neutral-400">
               <span>{c.budget || "Budget TBD"}</span>
-              <span className="tag-purple">{c.status}</span>
+              <span className="tag-brand">{c.status}</span>
             </div>
           </Link>
         ))}
         {items.length === 0 && (
-          <p className="text-sm text-gray-500">No campaigns yet. Start with a creator search.</p>
+          <p className="text-sm text-neutral-500">No campaigns yet. Start with a creator search.</p>
         )}
       </div>
 
-      {/* KPI-style insights row — Traackr Summary inspired */}
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-500">This week&apos;s insights</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {insightList.map((s) => (
-            <div key={s.category} className="kpi-card">
-              <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">{s.category}</p>
-              <p className="mt-1 text-2xl font-semibold text-gray-900">
-                {String(s.payload.avg_engagement_rate)}%
-              </p>
-              <p className="mt-1 text-xs text-gray-500">Avg engagement rate</p>
-              <p className="mt-2 text-xs text-gray-400">{String(s.payload.creator_count)} creators tracked</p>
-            </div>
-          ))}
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500">Brand insights</h2>
+        <div className="mt-4 max-w-xl rounded-lg border border-surface-border bg-white p-5 shadow-card">
+          <p className="mb-4 text-xs font-medium uppercase tracking-wide text-neutral-400">
+            Market engagement rate by category
+          </p>
+          <EngagementRateBarChart
+            items={insightList.map((s) => ({
+              label: s.category,
+              rate: Number(s.payload.avg_engagement_rate) || 0,
+              meta: `${String(s.payload.creator_count)} creators tracked`,
+            }))}
+          />
         </div>
         <Link href="/insights" className="mt-3 inline-block text-sm font-medium text-brand-600 hover:underline">
           View full insights →

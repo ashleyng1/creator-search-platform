@@ -60,7 +60,7 @@ export function CreatorResultsPanel({ results, onAddSelected, adding }: Props) {
         <div className="flex flex-1 items-center gap-2">
           <div className="relative max-w-xs flex-1">
             <svg
-              className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+              className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -79,7 +79,7 @@ export function CreatorResultsPanel({ results, onAddSelected, adding }: Props) {
           </button>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-sm text-gray-500">{filtered.length} creators</span>
+          <span className="text-sm text-neutral-500">{filtered.length} creators</span>
           <ViewToggle mode={viewMode} onChange={changeView} />
         </div>
       </div>
@@ -112,7 +112,7 @@ export function CreatorResultsPanel({ results, onAddSelected, adding }: Props) {
                     type="checkbox"
                     checked={filtered.length > 0 && selected.size === filtered.length}
                     onChange={toggleAll}
-                    className="h-4 w-4 rounded border-gray-300 text-brand-600"
+                    className="h-4 w-4 rounded border-neutral-300 accent-brand-600"
                   />
                 </th>
                 <th>Name</th>
@@ -138,7 +138,7 @@ export function CreatorResultsPanel({ results, onAddSelected, adding }: Props) {
             </tbody>
             <tfoot>
               <tr>
-                <td colSpan={10} className="border-t border-surface-border bg-surface-muted px-4 py-2 text-xs text-gray-500">
+                <td colSpan={10} className="border-t border-surface-border bg-surface-muted px-4 py-2 text-xs text-neutral-500">
                   {filtered.length} creators · Total audience{" "}
                   {formatFollowers(filtered.reduce((s, c) => s + c.followers, 0))}
                 </td>
@@ -160,7 +160,7 @@ export function CreatorResultsPanel({ results, onAddSelected, adding }: Props) {
       )}
 
       {filtered.length === 0 && (
-        <div className="rounded-b-lg border border-surface-border bg-white py-12 text-center text-sm text-gray-500">
+        <div className="rounded-b-lg border border-surface-border bg-white py-12 text-center text-sm text-neutral-500">
           No creators match your search
         </div>
       )}

@@ -10,6 +10,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from auth_utils import hash_password
 from database import Base, SessionLocal, engine
+from migrations import ensure_auth_schema
+from services.profile_images import enrich_creator_photos
 from models import (
     Campaign,
     CampaignMember,
@@ -43,6 +45,17 @@ def download_csv() -> Path:
     return dest
 
 
+def ensure_creator_schema() -> None:
+    """Add new columns to existing SQLite DBs without a full migration."""
+    with engine.connect() as conn:
+        cols = {row[1] for row in conn.exec_driver_sql("PRAGMA table_info(creators)")}
+        if "profile_image_url" not in cols:
+            conn.exec_driver_sql(
+                "ALTER TABLE creators ADD COLUMN profile_image_url VARCHAR(1000) DEFAULT ''"
+            )
+            conn.commit()
+
+
 def load_creators(db: Session) -> int:
     if db.query(Creator).count() > 0:
         return db.query(Creator).count()
@@ -64,6 +77,7 @@ def load_creators(db: Session) -> int:
             display_name=str(row.get("Title", handle)),
             platform="instagram",
             profile_url=str(row.get("Link", f"https://www.instagram.com/{handle}/")),
+            profile_image_url="",
             categories=str(row.get("Category", "")),
             rank=int(row.get("Rank", 0) or 0),
             followers=followers,
@@ -169,6 +183,7 @@ def seed_users(db: Session) -> User:
         brand_name="Glow Cosmetics GCC",
         job_title="Marketing Manager",
         industry="Beauty & Cosmetics",
+        email_verified=True,
     )
     manager = User(
         email="manager@brand.com",
@@ -178,6 +193,7 @@ def seed_users(db: Session) -> User:
         brand_name="Glow Cosmetics GCC",
         job_title="Brand Director",
         industry="Beauty & Cosmetics",
+        email_verified=True,
     )
     member = User(
         email="member@brand.com",
@@ -187,6 +203,7 @@ def seed_users(db: Session) -> User:
         brand_name="Glow Cosmetics GCC",
         job_title="Influencer Coordinator",
         industry="Beauty & Cosmetics",
+        email_verified=True,
     )
     db.add_all([owner, manager, member])
     db.commit()
@@ -301,10 +318,15 @@ def seed_insights(db: Session) -> None:
 
 def seed_all() -> None:
     Base.metadata.create_all(bind=engine)
+    ensure_creator_schema()
+    ensure_auth_schema()
     db = SessionLocal()
     try:
         n = load_creators(db)
         print(f"Loaded {n} creators from Instagram Top 1000 CSV")
+        added = enrich_creator_photos(db, max_count=40)
+        if added:
+            print(f"Enriched {added} creator profile photos")
         seed_templates(db)
         owner = seed_users(db)
         seed_demo_campaign(db, owner)

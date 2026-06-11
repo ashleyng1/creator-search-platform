@@ -1,5 +1,6 @@
 data/raw/
 backend/creator_search.db
+backend/.venv/
 backend/__pycache__/
 *.pyc
 .env

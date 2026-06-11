@@ -16,7 +16,7 @@ export function ViewToggle({
         onClick={() => onChange("list")}
         title="List view"
         className={`rounded px-2.5 py-1.5 ${
-          mode === "list" ? "bg-brand-100 text-brand-700" : "text-gray-500 hover:text-gray-700"
+          mode === "list" ? "bg-brand-100 text-brand-700" : "text-neutral-500 hover:text-neutral-700"
         }`}
       >
         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -28,7 +28,7 @@ export function ViewToggle({
         onClick={() => onChange("grid")}
         title="Grid view"
         className={`rounded px-2.5 py-1.5 ${
-          mode === "grid" ? "bg-brand-100 text-brand-700" : "text-gray-500 hover:text-gray-700"
+          mode === "grid" ? "bg-brand-100 text-brand-700" : "text-neutral-500 hover:text-neutral-700"
         }`}
       >
         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

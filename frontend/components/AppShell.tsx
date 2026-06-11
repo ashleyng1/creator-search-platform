@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { BrandLogo } from "@/components/BrandLogo";
 import { clearAuth, getUser } from "@/lib/api";
 
 const mainNav = [
@@ -54,36 +55,42 @@ export default function AppShell({
 
   return (
     <div className="flex min-h-screen bg-surface-muted">
-      {/* Icon rail */}
-      <aside className="flex w-14 flex-col items-center border-r border-surface-border bg-white py-4">
-        <Link href="/dashboard" className="mb-6 text-lg font-bold text-brand-600">
-          C
-        </Link>
-        {mainNav.map((item) => {
-          const active = pathname.startsWith(item.href);
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              title={item.label}
-              className={`mb-2 rounded-lg p-2.5 ${
-                active ? "bg-brand-100 text-brand-700" : "text-gray-400 hover:bg-gray-100 hover:text-gray-600"
-              }`}
-            >
-              <Icon d={item.icon} />
-            </Link>
-          );
-        })}
+      {/* Sidebar */}
+      <aside className="flex w-36 flex-shrink-0 flex-col border-r border-surface-border bg-white px-2 py-4">
+        <BrandLogo
+          href="/dashboard"
+          variant="icon"
+          iconClassName="mx-auto mb-6 h-8 w-8"
+        />
+        <nav className="flex flex-col gap-0.5">
+          {mainNav.map((item) => {
+            const active = pathname.startsWith(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-3 rounded-lg px-3 py-2.5 ${
+                  active
+                    ? "bg-brand-100 text-brand-700"
+                    : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-700"
+                }`}
+              >
+                <Icon d={item.icon} />
+                <span className="text-sm font-medium">{item.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
         <div className="mt-auto">
           <button
             onClick={() => {
               clearAuth();
               router.push("/login");
             }}
-            title="Log out"
-            className="rounded-lg p-2.5 text-gray-400 hover:bg-gray-100"
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-neutral-500 hover:bg-neutral-100 hover:text-neutral-700"
           >
             <Icon d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            <span className="text-sm font-medium">Exit</span>
           </button>
         </div>
       </aside>
@@ -93,11 +100,11 @@ export default function AppShell({
         <aside className="hidden w-52 flex-shrink-0 border-r border-surface-border bg-white md:block">
           <Link
             href="/dashboard"
-            className="flex items-center gap-1 px-4 py-3 text-xs text-gray-500 hover:text-brand-600"
+            className="flex items-center gap-1 px-4 py-3 text-xs text-neutral-500 hover:text-brand-600"
           >
             ← All campaigns
           </Link>
-          <p className="px-4 pb-3 text-sm font-semibold leading-snug text-gray-900">{campaignTitle}</p>
+          <p className="px-4 pb-3 text-sm font-semibold leading-snug text-neutral-900">{campaignTitle}</p>
           <nav className="px-2">
             {campaignTabs.map((tab) => (
               <Link
@@ -105,8 +112,8 @@ export default function AppShell({
                 href={tab.href}
                 className={`mb-0.5 block rounded-md px-3 py-2 text-sm ${
                   campaignTab === tab.key
-                    ? "bg-surface-muted font-medium text-gray-900"
-                    : "text-gray-600 hover:bg-surface-muted"
+                    ? "bg-surface-muted font-medium text-neutral-900"
+                    : "text-neutral-600 hover:bg-surface-muted"
                 }`}
               >
                 {tab.label}
@@ -121,7 +128,7 @@ export default function AppShell({
         <header className="flex items-center justify-between border-b border-surface-border bg-white px-6 py-3">
           <div>
             {breadcrumbs && breadcrumbs.length > 0 && (
-              <div className="mb-1 flex items-center gap-1 text-xs text-gray-500">
+              <div className="mb-1 flex items-center gap-1 text-xs text-neutral-500">
                 {breadcrumbs.map((b, i) => (
                   <span key={i} className="flex items-center gap-1">
                     {i > 0 && <span>›</span>}
@@ -136,11 +143,11 @@ export default function AppShell({
                 ))}
               </div>
             )}
-            {title && <h1 className="text-xl font-semibold text-gray-900">{title}</h1>}
-            {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
+            {title && <h1 className="text-xl font-semibold text-neutral-900">{title}</h1>}
+            {subtitle && <p className="text-sm text-neutral-500">{subtitle}</p>}
           </div>
           <div className="flex items-center gap-2">
-            <span className="hidden text-xs text-gray-500 sm:inline">{user.brand_name}</span>
+            <span className="hidden text-xs text-neutral-500 sm:inline">{user.brand_name}</span>
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-100 text-xs font-semibold text-brand-700">
               {user.full_name?.slice(0, 2).toUpperCase()}
             </div>

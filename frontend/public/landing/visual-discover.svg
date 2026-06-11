@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" fill="#FAFAFA"/>
+  <text x="400" y="48" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" letter-spacing="3" fill="#A3A3A3">MATCHED TO YOUR BRIEF</text>
+  <rect x="120" y="90" width="200" height="280" rx="100" fill="#FFFFFF" stroke="#E5E5E5"/>
+  <circle cx="220" cy="170" r="48" fill="#F5F5F5" stroke="#D97706" stroke-width="2"/>
+  <text x="220" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#262626">Micro</text>
+  <text x="220" y="272" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#737373">High engagement</text>
+  <text x="220" y="330" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" font-weight="600" fill="#B45309">94%</text>
+  <text x="220" y="348" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#A3A3A3">fit score</text>
+  <rect x="300" y="70" width="200" height="300" rx="100" fill="#FFFFFF" stroke="#D97706" stroke-width="2"/>
+  <circle cx="400" cy="155" r="56" fill="#FFFBEB" stroke="#D97706" stroke-width="2"/>
+  <text x="400" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="600" fill="#262626">Mid-tier</text>
+  <text x="400" y="267" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#737373">Audience overlap</text>
+  <text x="400" y="330" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="600" fill="#B45309">97%</text>
+  <text x="400" y="350" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#A3A3A3">fit score</text>
+  <rect x="480" y="90" width="200" height="280" rx="100" fill="#FFFFFF" stroke="#E5E5E5"/>
+  <circle cx="580" cy="170" r="48" fill="#F5F5F5" stroke="#D97706" stroke-width="2"/>
+  <text x="580" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#262626">Macro</text>
+  <text x="580" y="272" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#737373">Reach + relevance</text>
+  <text x="580" y="330" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" font-weight="600" fill="#B45309">89%</text>
+  <text x="580" y="348" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#A3A3A3">fit score</text>
+  <text x="400" y="430" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#737373">Ranked by what matters to your campaign</text>
+</svg>

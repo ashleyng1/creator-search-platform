@@ -14,6 +14,21 @@ class UserRegister(BaseModel):
     industry: str = ""
 
 
+class OtpRequest(BaseModel):
+    email: EmailStr
+
+
+class OtpVerifyRegister(BaseModel):
+    email: EmailStr
+    code: str = Field(min_length=6, max_length=6)
+    password: str = Field(min_length=6)
+    full_name: str
+    role: str = "marketing_professional"
+    brand_name: str = ""
+    job_title: str = ""
+    industry: str = ""
+
+
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
@@ -53,6 +68,7 @@ class CreatorOut(BaseModel):
     display_name: str
     platform: str
     profile_url: str
+    profile_image_url: str = ""
     categories: str
     followers: float
     audience_country: str

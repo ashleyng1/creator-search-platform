@@ -74,12 +74,12 @@ export default function SearchPage() {
     <AppShell
       breadcrumbs={[{ label: "Search", href: "/search" }]}
       title="Creator search"
-      subtitle="Describe your campaign — results appear as a list or product grid"
+      subtitle="Describe your campaign brief to find matching creators"
     >
       {/* Search bar — Google-style prominent input */}
       <div className="mx-auto max-w-3xl">
         <form onSubmit={handleSearch} className="rounded-xl border border-surface-border bg-white p-5 shadow-card">
-          <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <label className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
             Campaign title
           </label>
           <input
@@ -89,7 +89,7 @@ export default function SearchPage() {
             className="input-field mt-1"
             placeholder="e.g. Gloss Lipstick GCC Launch"
           />
-          <label className="mt-4 block text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <label className="mt-4 block text-xs font-semibold uppercase tracking-wide text-neutral-500">
             Brief (natural language)
           </label>
           <textarea
@@ -115,7 +115,7 @@ export default function SearchPage() {
             {showFilters ? "Hide" : "Show"} parsed filters
           </button>
           {showFilters && (
-            <pre className="mt-2 overflow-x-auto rounded-lg border border-surface-border bg-white p-3 text-xs text-gray-600">
+            <pre className="mt-2 overflow-x-auto rounded-lg border border-surface-border bg-white p-3 text-xs text-neutral-600">
               {JSON.stringify(filters, null, 2)}
             </pre>
           )}
@@ -131,7 +131,7 @@ export default function SearchPage() {
       )}
 
       {campaignId && (
-        <p className="mt-4 text-center text-sm text-gray-500">
+        <p className="mt-4 text-center text-sm text-neutral-500">
           Campaign created.{" "}
           <Link href={`/campaigns/${campaignId}`} className="font-medium text-brand-600 hover:underline">
             View campaign →

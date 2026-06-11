@@ -7,12 +7,15 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
+from config import get_settings
 from database import get_db
 from models import CampaignMember, CampaignRole, User
 
-SECRET_KEY = "creator-search-local-dev-secret-change-in-production"
+settings = get_settings()
+SECRET_KEY = settings.SECRET_KEY
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7
+OAUTH_STATE_EXPIRE_MINUTES = 10
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
@@ -26,10 +29,26 @@ def verify_password(plain: str, hashed: str) -> bool:
     return pwd_context.verify(plain, hashed)
 
 
-def create_access_token(data: dict) -> str:
+def create_access_token(data: dict, expires_minutes: int = ACCESS_TOKEN_EXPIRE_MINUTES) -> str:
     to_encode = data.copy()
-    to_encode["exp"] = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode["exp"] = datetime.utcnow() + timedelta(minutes=expires_minutes)
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+
+def create_oauth_state(provider: str) -> str:
+    return create_access_token(
+        {"type": "oauth_state", "provider": provider},
+        expires_minutes=OAUTH_STATE_EXPIRE_MINUTES,
+    )
+
+
+def verify_oauth_state(state: str, provider: str) -> None:
+    try:
+        payload = jwt.decode(state, SECRET_KEY, algorithms=[ALGORITHM])
+        if payload.get("type") != "oauth_state" or payload.get("provider") != provider:
+            raise HTTPException(status_code=400, detail="Invalid OAuth state")
+    except JWTError as exc:
+        raise HTTPException(status_code=400, detail="Invalid or expired OAuth state") from exc
 
 
 def get_current_user(

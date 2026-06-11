@@ -4,18 +4,17 @@ from datetime import datetime
 
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from auth_utils import (
     can_approve,
-    create_access_token,
     get_current_user,
-    hash_password,
     require_campaign_access,
-    verify_password,
 )
+from config import get_settings
 from database import Base, engine, get_db
+from migrations import ensure_auth_schema
+from routers.auth import router as auth_router
 from models import (
     ApprovalStatus,
     Campaign,
@@ -31,7 +30,6 @@ from models import (
     ShortlistItem,
     TemplateType,
     User,
-    UserRole,
 )
 from schemas import (
     ApprovalAction,
@@ -52,20 +50,23 @@ from schemas import (
     TeamMemberAdd,
     TeamMemberOut,
     TemplatePreviewRequest,
-    TokenOut,
-    UserOut,
-    UserRegister,
 )
 from services.analytics import compute_campaign_analytics
 from services.nl_parser import parse_brief
 from services.recommender import recommend_creators
 
 app = FastAPI(title="Creator Search Platform API")
+settings = get_settings()
+
+_cors_origins = ["http://localhost:3000", "http://127.0.0.1:3000"]
+if settings.FRONTEND_URL not in _cors_origins:
+    _cors_origins.append(settings.FRONTEND_URL)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=_cors_origins,
     allow_origin_regex=(
+        r"https://.*\.vercel\.app|"
         r"https://.*\.trycloudflare\.com|"
         r"https://.*\.ngrok-free\.app|"
         r"https://.*\.ngrok\.io|"
@@ -85,49 +86,19 @@ def render_template(text: str, variables: dict) -> str:
     return result
 
 
+app.include_router(auth_router)
+
+
 @app.on_event("startup")
 def startup():
     Base.metadata.create_all(bind=engine)
+    ensure_auth_schema()
     try:
         from scripts.seed_db import seed_all
 
         seed_all()
     except Exception as exc:
         print(f"Seed skipped or partial: {exc}")
-
-
-@app.post("/api/auth/register", response_model=TokenOut)
-def register(data: UserRegister, db: Session = Depends(get_db)):
-    if db.query(User).filter(User.email == data.email).first():
-        raise HTTPException(status_code=400, detail="Email already registered")
-    user = User(
-        email=data.email,
-        password_hash=hash_password(data.password),
-        full_name=data.full_name,
-        role=UserRole(data.role),
-        brand_name=data.brand_name,
-        job_title=data.job_title,
-        industry=data.industry,
-    )
-    db.add(user)
-    db.commit()
-    db.refresh(user)
-    token = create_access_token({"sub": str(user.id)})
-    return TokenOut(access_token=token, user=UserOut.model_validate(user))
-
-
-@app.post("/api/auth/login", response_model=TokenOut)
-def login(form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.email == form.username).first()
-    if not user or not verify_password(form.password, user.password_hash):
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-    token = create_access_token({"sub": str(user.id)})
-    return TokenOut(access_token=token, user=UserOut.model_validate(user))
-
-
-@app.get("/api/auth/me", response_model=UserOut)
-def me(user: User = Depends(get_current_user)):
-    return UserOut.model_validate(user)
 
 
 @app.post("/api/search/parse")

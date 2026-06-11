@@ -1,12 +1,18 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
-  title: "CreatorFind — Influencer Discovery for Brands",
-  description: "Search creators with natural language, collaborate with your team, and track campaign performance.",
+  title: "Creator | Influencer marketing for brand teams",
+  description:
+    "Find creators aligned with your brand, track partnership performance, and listen to your market in one platform.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

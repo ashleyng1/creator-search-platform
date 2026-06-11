@@ -155,6 +155,18 @@ function CampaignContent() {
 
   if (!campaign) return null;
 
+  const tabLabels: Record<string, { title: string; subtitle?: string }> = {
+    creators: { title: "Creators", subtitle: campaign.budget ? `Budget: ${campaign.budget}` : undefined },
+    outreach: { title: "Outreach", subtitle: campaign.budget ? `Budget: ${campaign.budget}` : undefined },
+    team: { title: "Team", subtitle: campaign.budget ? `Budget: ${campaign.budget}` : undefined },
+    performance: {
+      title: "Performance",
+      subtitle: "Engagement and results for this campaign only",
+    },
+    summary: { title: "Summary", subtitle: campaign.budget ? `Budget: ${campaign.budget}` : undefined },
+  };
+  const tabMeta = tabLabels[tab] ?? { title: tab };
+
   return (
     <AppShell
       campaignId={id}
@@ -163,10 +175,10 @@ function CampaignContent() {
       breadcrumbs={[
         { label: "All campaigns", href: "/dashboard" },
         { label: campaign.title },
-        { label: tab.charAt(0).toUpperCase() + tab.slice(1) },
+        { label: tabMeta.title },
       ]}
-      title={tab.charAt(0).toUpperCase() + tab.slice(1)}
-      subtitle={campaign.budget ? `Budget: ${campaign.budget}` : undefined}
+      title={tabMeta.title}
+      subtitle={tabMeta.subtitle}
     >
       {tab === "creators" && (
         <div className="grid gap-6 lg:grid-cols-3">
@@ -181,7 +193,7 @@ function CampaignContent() {
                 />
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-500">{filteredShortlist.length} creators</span>
+                <span className="text-sm text-neutral-500">{filteredShortlist.length} creators</span>
                 <ViewToggle
                   mode={viewMode}
                   onChange={(m) => {
@@ -199,7 +211,7 @@ function CampaignContent() {
                     <tr>
                       <th className="w-10">#</th>
                       <th className="w-10">
-                        <input type="checkbox" className="h-4 w-4 rounded" readOnly />
+                        <input type="checkbox" className="h-4 w-4 rounded accent-brand-600" readOnly />
                       </th>
                       <th>Name</th>
                       <th>Country</th>
@@ -218,21 +230,26 @@ function CampaignContent() {
                           selectedItem?.id === item.id ? "bg-brand-50/60" : ""
                         }`}
                       >
-                        <td className="text-xs text-gray-400">{i + 1}</td>
+                        <td className="text-xs text-neutral-400">{i + 1}</td>
                         <td onClick={(e) => e.stopPropagation()}>
                           <input
                             type="checkbox"
                             checked={selectedIds.has(item.id)}
                             onChange={() => toggleSelect(item.id)}
-                            className="h-4 w-4 rounded text-brand-600"
+                            className="h-4 w-4 rounded accent-brand-600"
                           />
                         </td>
                         <td>
                           <div className="flex items-center gap-2">
-                            <CreatorAvatar handle={item.creator.handle} name={item.creator.display_name} size={32} />
+                            <CreatorAvatar
+                              handle={item.creator.handle}
+                              name={item.creator.display_name}
+                              profileImageUrl={item.creator.profile_image_url}
+                              size={32}
+                            />
                             <div>
                               <p className="font-medium">{item.creator.display_name}</p>
-                              <p className="text-xs text-gray-500">@{item.creator.handle}</p>
+                              <p className="text-xs text-neutral-500">@{item.creator.handle}</p>
                             </div>
                           </div>
                         </td>
@@ -242,7 +259,7 @@ function CampaignContent() {
                         </td>
                         <td>{followerTier(item.creator.followers)}</td>
                         <td>{formatFollowers(item.creator.followers)}</td>
-                        <td className="text-gray-500">{item.feedback_count}</td>
+                        <td className="text-neutral-500">{item.feedback_count}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -270,11 +287,16 @@ function CampaignContent() {
                         onClick={(e) => e.stopPropagation()}
                         className="mt-1 h-4 w-4 rounded"
                       />
-                      <CreatorAvatar handle={item.creator.handle} name={item.creator.display_name} size={48} />
+                      <CreatorAvatar
+                        handle={item.creator.handle}
+                        name={item.creator.display_name}
+                        profileImageUrl={item.creator.profile_image_url}
+                        size={48}
+                      />
                       <div className="min-w-0 flex-1">
                         <p className="font-medium truncate">{item.creator.display_name}</p>
                         <StatusPill status={item.approval_status} />
-                        <p className="mt-1 text-xs text-gray-500">
+                        <p className="mt-1 text-xs text-neutral-500">
                           {formatFollowers(item.creator.followers)} · {item.feedback_count} feedback
                         </p>
                       </div>
@@ -290,17 +312,17 @@ function CampaignContent() {
             {selectedItem ? (
               <>
                 <h3 className="font-semibold">@{selectedItem.creator.handle}</h3>
-                <p className="text-sm text-gray-500">{selectedItem.creator.categories}</p>
+                <p className="text-sm text-neutral-500">{selectedItem.creator.categories}</p>
                 <div className="mt-2 flex flex-wrap gap-1">
                   {selectedItem.match_reasons.map((r) => (
-                    <span key={r} className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600">
+                    <span key={r} className="rounded bg-neutral-100 px-2 py-0.5 text-xs text-neutral-600">
                       {r}
                     </span>
                   ))}
                 </div>
 
                 <section className="mt-5 border-t border-surface-border pt-4">
-                  <h4 className="text-xs font-semibold uppercase text-gray-500">Team feedback</h4>
+                  <h4 className="text-xs font-semibold uppercase text-neutral-500">Team feedback</h4>
                   <div className="mt-2 max-h-36 space-y-2 overflow-y-auto">
                     {feedback.map((f) => (
                       <div key={f.id} className="rounded bg-surface-muted p-2 text-sm">
@@ -308,7 +330,7 @@ function CampaignContent() {
                           <span className="font-medium">{f.author_name}</span>
                           {f.rating && <span className="text-brand-600">★ {f.rating}</span>}
                         </div>
-                        <p className="text-gray-600">{f.comment}</p>
+                        <p className="text-neutral-600">{f.comment}</p>
                       </div>
                     ))}
                   </div>
@@ -347,7 +369,7 @@ function CampaignContent() {
                 )}
               </>
             ) : (
-              <p className="text-sm text-gray-500">Select a creator to review feedback and approve outreach</p>
+              <p className="text-sm text-neutral-500">Select a creator to review feedback and approve outreach</p>
             )}
           </div>
         </div>
@@ -356,7 +378,7 @@ function CampaignContent() {
       {tab === "outreach" && (
         <div className="grid gap-6 lg:grid-cols-2">
           <div>
-            <h2 className="text-sm font-semibold uppercase text-gray-500">Approved creators</h2>
+            <h2 className="text-sm font-semibold uppercase text-neutral-500">Approved creators</h2>
             <div className="mt-3 space-y-2">
               {shortlist
                 .filter((s) => s.approval_status === "approved")
@@ -369,15 +391,20 @@ function CampaignContent() {
                       selectedItem?.id === item.id ? "border-brand-400 bg-brand-50" : "border-surface-border bg-white"
                     }`}
                   >
-                    <CreatorAvatar handle={item.creator.handle} name={item.creator.display_name} size={36} />
+                    <CreatorAvatar
+                    handle={item.creator.handle}
+                    name={item.creator.display_name}
+                    profileImageUrl={item.creator.profile_image_url}
+                    size={36}
+                  />
                     <div>
                       <p className="font-medium">{item.creator.display_name}</p>
-                      <p className="text-xs text-gray-500">{item.outreach_status}</p>
+                      <p className="text-xs text-neutral-500">{item.outreach_status}</p>
                     </div>
                   </button>
                 ))}
               {shortlist.filter((s) => s.approval_status === "approved").length === 0 && (
-                <p className="text-sm text-gray-500">No approved creators yet. Approve creators on the Creators tab.</p>
+                <p className="text-sm text-neutral-500">No approved creators yet. Approve creators on the Creators tab.</p>
               )}
             </div>
           </div>
@@ -413,7 +440,7 @@ function CampaignContent() {
                 </div>
               </>
             ) : (
-              <p className="text-sm text-gray-500">Select an approved creator to compose outreach</p>
+              <p className="text-sm text-neutral-500">Select an approved creator to compose outreach</p>
             )}
           </div>
         </div>
@@ -426,15 +453,15 @@ function CampaignContent() {
               <li key={m.user_id} className="flex items-center justify-between rounded-lg border border-surface-border bg-white px-4 py-3">
                 <div>
                   <p className="font-medium">{m.full_name}</p>
-                  <p className="text-sm text-gray-500">{m.email}</p>
+                  <p className="text-sm text-neutral-500">{m.email}</p>
                 </div>
-                <span className="tag-purple capitalize">{m.role}</span>
+                <span className="tag-brand capitalize">{m.role}</span>
               </li>
             ))}
           </ul>
           <div className="mt-6 rounded-lg border border-surface-border bg-white p-4">
             <h3 className="font-medium">Add team member</h3>
-            <p className="text-xs text-gray-500">User must be registered (e.g. member@brand.com)</p>
+            <p className="text-xs text-neutral-500">User must be registered (e.g. member@brand.com)</p>
             <input value={teamEmail} onChange={(e) => setTeamEmail(e.target.value)} className="input-field mt-2" placeholder="email@brand.com" />
             <select value={teamRole} onChange={(e) => setTeamRole(e.target.value)} className="input-field mt-2">
               <option value="member">Member</option>
@@ -449,7 +476,7 @@ function CampaignContent() {
       {tab === "performance" && (
         <div>
           {!analytics?.posts?.length ? (
-            <p className="text-sm text-gray-500">No posts logged yet.</p>
+            <p className="text-sm text-neutral-500">No posts logged yet.</p>
           ) : (
             <table className="data-table w-full rounded-lg border border-surface-border bg-white shadow-card">
               <thead>
@@ -478,14 +505,14 @@ function CampaignContent() {
             <PostForm campaignId={id} creatorId={selectedItem.creator.id} onSaved={load} />
           )}
           {!selectedItem && shortlist[0] && (
-            <p className="mt-4 text-xs text-gray-400">Select a creator on the Creators tab to log a post</p>
+            <p className="mt-4 text-xs text-neutral-400">Select a creator on the Creators tab to log a post</p>
           )}
         </div>
       )}
 
       {tab === "summary" && (
         <div>
-          <p className="max-w-2xl text-sm text-gray-600">{campaign.brief_text}</p>
+          <p className="max-w-2xl text-sm text-neutral-600">{campaign.brief_text}</p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { label: "Creators", value: shortlist.length },
@@ -494,7 +521,7 @@ function CampaignContent() {
               { label: "Posts tracked", value: analytics?.posts?.length || 0 },
             ].map((kpi) => (
               <div key={kpi.label} className="kpi-card">
-                <p className="text-xs font-semibold uppercase text-gray-400">{kpi.label}</p>
+                <p className="text-xs font-semibold uppercase text-neutral-400">{kpi.label}</p>
                 <p className="mt-1 text-2xl font-semibold">{kpi.value}</p>
               </div>
             ))}
@@ -507,12 +534,12 @@ function CampaignContent() {
 
 function StatusPill({ status }: { status: string }) {
   const styles: Record<string, string> = {
-    pending: "bg-yellow-100 text-yellow-800",
-    approved: "bg-brand-100 text-brand-700",
-    rejected: "bg-red-100 text-red-700",
+    pending: "bg-neutral-100 text-neutral-600",
+    approved: "bg-brand-50 text-brand-700",
+    rejected: "bg-neutral-200 text-neutral-700",
   };
   return (
-    <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium capitalize ${styles[status] || "bg-gray-100"}`}>
+    <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium capitalize ${styles[status] || "bg-neutral-100"}`}>
       {status}
     </span>
   );
@@ -544,7 +571,7 @@ function PostForm({ campaignId, creatorId, onSaved }: { campaignId: number; crea
 
 export default function CampaignPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}>
+    <Suspense fallback={<div className="p-8 text-neutral-500">Loading...</div>}>
       <CampaignContent />
     </Suspense>
   );

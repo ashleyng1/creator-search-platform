@@ -162,6 +162,7 @@ def recommend_creators(
                 "display_name": c.display_name,
                 "platform": c.platform,
                 "profile_url": c.profile_url,
+                "profile_image_url": c.profile_image_url or "",
                 "categories": c.categories,
                 "followers": c.followers,
                 "audience_country": c.audience_country,

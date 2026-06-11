@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import AppShell from "@/components/AppShell";
+import { EngagementRateBarChart } from "@/components/EngagementRateBarChart";
 import { getToken, insights, type InsightSnapshot } from "@/lib/api";
 
 export default function InsightsPage() {
@@ -16,7 +17,23 @@ export default function InsightsPage() {
   }, [router]);
 
   return (
-    <AppShell breadcrumbs={[{ label: "Insights" }]} title="Weekly insights" subtitle="Benchmarks from Instagram Top 1000 dataset">
+    <AppShell
+      breadcrumbs={[{ label: "Insights" }]}
+      title="Brand insights"
+      subtitle="Market benchmarks for your brand, not tied to a single campaign"
+    >
+      <div className="mb-6 max-w-xl rounded-lg border border-surface-border bg-white p-6 shadow-card">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500">Engagement by category</h2>
+        <EngagementRateBarChart
+          className="mt-4"
+          items={items.map((s) => ({
+            label: s.category,
+            rate: Number(s.payload.avg_engagement_rate) || 0,
+            meta: `${String(s.payload.creator_count)} creators tracked`,
+          }))}
+        />
+      </div>
+
       <div className="grid gap-6 md:grid-cols-2">
         {items.map((s) => {
           const top = (s.payload.top_handles as Array<{ handle: string; followers: number; er: number }>) || [];
@@ -24,28 +41,17 @@ export default function InsightsPage() {
             <div key={s.category} className="rounded-lg border border-surface-border bg-white p-6 shadow-card">
               <div className="flex justify-between">
                 <h2 className="text-lg font-semibold">{s.category}</h2>
-                <span className="text-xs text-gray-400">{s.week_label}</span>
+                <span className="text-xs text-neutral-400">{s.week_label}</span>
               </div>
-              <p className="mt-2 text-sm text-gray-600">{String(s.payload.insight)}</p>
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                <div className="kpi-card">
-                  <p className="text-xs text-gray-400">Creators</p>
-                  <p className="text-xl font-semibold">{String(s.payload.creator_count)}</p>
-                </div>
-                <div className="kpi-card">
-                  <p className="text-xs text-gray-400">Avg ER</p>
-                  <p className="text-xl font-semibold">{String(s.payload.avg_engagement_rate)}%</p>
-                </div>
-              </div>
-              <h3 className="mt-4 text-xs font-semibold uppercase text-gray-500">Top performers</h3>
-              <ul className="mt-2 space-y-1">
-                {top.map((c) => (
-                  <li key={c.handle} className="flex justify-between text-sm text-gray-600">
-                    <span>@{c.handle}</span>
-                    <span>{c.er}% ER</span>
-                  </li>
-                ))}
-              </ul>
+              <p className="mt-2 text-sm text-neutral-600">{String(s.payload.insight)}</p>
+              <h3 className="mt-5 text-xs font-semibold uppercase text-neutral-500">Top performers</h3>
+              <EngagementRateBarChart
+                className="mt-3"
+                items={top.map((c) => ({
+                  label: `@${c.handle}`,
+                  rate: c.er,
+                }))}
+              />
             </div>
           );
         })}

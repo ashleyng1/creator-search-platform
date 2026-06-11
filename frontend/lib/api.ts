@@ -41,8 +41,13 @@ async function api<T>(
 }
 
 export const auth = {
-  register: (data: Record<string, string>) =>
-    api<{ access_token: string; user: unknown }>("/api/auth/register", {
+  requestOtp: (email: string) =>
+    api<{ message: string }>("/api/auth/register/request-otp", {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    }),
+  verifyOtp: (data: Record<string, string>) =>
+    api<{ access_token: string; user: unknown }>("/api/auth/register/verify", {
       method: "POST",
       body: JSON.stringify(data),
     }),
@@ -53,10 +58,15 @@ export const auth = {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body,
     });
-    if (!res.ok) throw new Error("Invalid credentials");
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ detail: "Invalid credentials" }));
+      throw new Error(err.detail || "Invalid credentials");
+    }
     return res.json();
   },
   me: () => api<unknown>("/api/auth/me"),
+  oauthStartUrl: (provider: "google" | "apple" | "meta") =>
+    `${API_BASE}/api/auth/${provider}/start`,
 };
 
 export const search = {
@@ -142,6 +152,7 @@ export interface CreatorResult {
   display_name: string;
   platform: string;
   profile_url: string;
+  profile_image_url?: string;
   categories: string;
   followers: number;
   audience_country: string;

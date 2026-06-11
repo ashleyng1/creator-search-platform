@@ -37,21 +37,21 @@ export default function TemplatesPage() {
             <div className="flex justify-between">
               <div>
                 <h3 className="font-medium">{t.name}</h3>
-                <span className="text-xs capitalize text-gray-400">{t.template_type}</span>
-                {t.is_system && <span className="ml-2 rounded bg-gray-100 px-2 py-0.5 text-xs">System</span>}
+                <span className="text-xs capitalize text-neutral-400">{t.template_type}</span>
+                {t.is_system && <span className="ml-2 rounded bg-neutral-100 px-2 py-0.5 text-xs">System</span>}
               </div>
               <button onClick={() => setEditing({ ...t, name: t.is_system ? t.name + " (My copy)" : t.name })} className="text-sm text-brand-600 hover:underline">
                 Customize
               </button>
             </div>
-            <p className="mt-2 text-sm font-medium text-gray-700">{t.subject}</p>
-            <pre className="mt-2 whitespace-pre-wrap text-xs text-gray-500">{t.body.slice(0, 180)}...</pre>
+            <p className="mt-2 text-sm font-medium text-neutral-700">{t.subject}</p>
+            <pre className="mt-2 whitespace-pre-wrap text-xs text-neutral-500">{t.body.slice(0, 180)}...</pre>
           </div>
         ))}
       </div>
 
       {editing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/30 p-4">
           <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-6 shadow-card">
             <h2 className="font-semibold">Edit template</h2>
             <input value={editing.name} onChange={(e) => setEditing({ ...editing, name: e.target.value })} className="input-field mt-3" />

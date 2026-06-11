@@ -58,18 +58,59 @@ class User(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     email: Mapped[str] = mapped_column(String(255), unique=True, index=True)
-    password_hash: Mapped[str] = mapped_column(String(255))
+    password_hash: Mapped[str] = mapped_column(String(255), default="")
     full_name: Mapped[str] = mapped_column(String(255))
     role: Mapped[UserRole] = mapped_column(Enum(UserRole))
     brand_name: Mapped[str] = mapped_column(String(255), default="")
     job_title: Mapped[str] = mapped_column(String(255), default="")
     industry: Mapped[str] = mapped_column(String(255), default="")
+    email_verified: Mapped[bool] = mapped_column(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
     campaigns: Mapped[list["Campaign"]] = relationship(back_populates="owner")
     campaign_memberships: Mapped[list["CampaignMember"]] = relationship(back_populates="user")
     feedback: Mapped[list["CreatorFeedback"]] = relationship(back_populates="author")
     templates: Mapped[list["EmailTemplate"]] = relationship(back_populates="owner")
+    oauth_accounts: Mapped[list["OAuthAccount"]] = relationship(back_populates="user")
+    auth_events: Mapped[list["AuthEvent"]] = relationship(back_populates="user")
+
+
+class EmailOtpCode(Base):
+    __tablename__ = "email_otp_codes"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    email: Mapped[str] = mapped_column(String(255), index=True)
+    code_hash: Mapped[str] = mapped_column(String(255))
+    purpose: Mapped[str] = mapped_column(String(50), default="register")
+    expires_at: Mapped[datetime] = mapped_column(DateTime)
+    attempts: Mapped[int] = mapped_column(Integer, default=0)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class OAuthAccount(Base):
+    __tablename__ = "oauth_accounts"
+    __table_args__ = (UniqueConstraint("provider", "provider_user_id", name="uq_oauth_provider_user"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    provider: Mapped[str] = mapped_column(String(50))
+    provider_user_id: Mapped[str] = mapped_column(String(255))
+    email: Mapped[str] = mapped_column(String(255), default="")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    user: Mapped["User"] = relationship(back_populates="oauth_accounts")
+
+
+class AuthEvent(Base):
+    __tablename__ = "auth_events"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    event: Mapped[str] = mapped_column(String(50))
+    provider: Mapped[str] = mapped_column(String(50), default="email")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    user: Mapped["User | None"] = relationship(back_populates="auth_events")
 
 
 class Creator(Base):
@@ -80,6 +121,7 @@ class Creator(Base):
     display_name: Mapped[str] = mapped_column(String(255))
     platform: Mapped[str] = mapped_column(String(50), default="instagram")
     profile_url: Mapped[str] = mapped_column(String(500), default="")
+    profile_image_url: Mapped[str] = mapped_column(String(1000), default="")
     categories: Mapped[str] = mapped_column(String(500), default="")
     rank: Mapped[int] = mapped_column(Integer, default=0)
     followers: Mapped[float] = mapped_column(Float, default=0)

@@ -1,6 +1,6 @@
 export function creatorAvatarUrl(handle: string, name?: string): string {
   const label = encodeURIComponent(name || handle);
-  return `https://ui-avatars.com/api/?name=${label}&background=ede9fe&color=5b21b6&size=80&bold=true`;
+  return `https://ui-avatars.com/api/?name=${label}&background=fef3c7&color=b45309&size=80&bold=true`;
 }
 
 export function followerTier(followers: number): string {

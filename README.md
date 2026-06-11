@@ -23,6 +23,24 @@ npm run dev
 
 Open **http://localhost:3000**
 
+### Auth environment (optional)
+
+Copy `backend/.env.example` to `backend/.env` and fill in keys as needed.
+
+| Feature | Dev without keys | With keys |
+|---------|------------------|-----------|
+| Email OTP register | Code printed in backend terminal (`[DEV OTP]`) | Resend sends real email |
+| Google / Apple / Instagram sign-in | Buttons return 503 until configured | OAuth redirects work |
+
+**Provider setup (one-time):**
+
+1. **Resend** — [resend.com](https://resend.com) API key + verified sender domain
+2. **Google** — [Google Cloud Console](https://console.cloud.google.com) → OAuth 2.0 Web client → redirect `http://localhost:8000/api/auth/google/callback`
+3. **Apple** — [Apple Developer](https://developer.apple.com) → Sign in with Apple service ID + `.p8` key
+4. **Instagram button** — [Meta for Developers](https://developers.facebook.com) → Facebook Login app → redirect `http://localhost:8000/api/auth/meta/callback`
+
+Registration flow: email → OTP → password + profile. Passwords are bcrypt-hashed in the database (never stored in plaintext).
+
 ## Demo accounts
 
 | Email | Password | Role |

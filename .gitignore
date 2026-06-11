@@ -1,0 +1,7 @@
+data/raw/
+backend/creator_search.db
+backend/__pycache__/
+*.pyc
+.env
+node_modules/
+.next/

@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: "Inter", system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-inter);
+  background: #f8f9fb;
+  color: #1a1a2e;
+}
+
+@layer components {
+  .btn-primary {
+    @apply rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply rounded-md border border-surface-border bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50;
+  }
+  .input-field {
+    @apply w-full rounded-md border border-surface-border bg-white px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500;
+  }
+  .tag-purple {
+    @apply inline-flex rounded-full bg-brand-100 px-2.5 py-0.5 text-xs font-medium text-brand-700;
+  }
+  .kpi-card {
+    @apply rounded-lg border border-surface-border bg-white px-4 py-3 shadow-card;
+  }
+  .data-table th {
+    @apply border-b border-surface-border bg-surface-muted px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-gray-500;
+  }
+  .data-table td {
+    @apply border-b border-surface-border px-4 py-3 text-sm text-gray-800;
+  }
+}

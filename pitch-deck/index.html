@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Tasweeq — Investor Pitch Deck</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#0a0e1a; --bg2:#0f1628; --ink:#eaf0ff; --muted:#9aa6c4;
+      --brand:#00d4a0; --brand2:#3b82f6; --gold:#f5b942; --danger:#ff6b6b;
+      --card:#141c30; --line:#233150;
+    }
+    .reveal{font-family:'Sora',system-ui,sans-serif;font-size:30px;color:var(--ink);}
+    .reveal .slides{text-align:left;}
+    .reveal .slides section{height:100%;}
+    .reveal h1,.reveal h2,.reveal h3{font-family:'Sora',sans-serif;color:#fff;font-weight:800;letter-spacing:-.02em;text-transform:none;margin-bottom:.3em;line-height:1.08;}
+    .reveal h1{font-size:2.4em;} .reveal h2{font-size:1.55em;} .reveal h3{font-size:1.05em;}
+    .reveal section.title-slide,.reveal section[data-background-gradient]{}
+    .reveal p,.reveal li{color:var(--ink);line-height:1.4;}
+    .reveal em{color:var(--brand);font-style:normal;font-weight:600;}
+    .ar{font-family:'IBM Plex Sans Arabic',sans-serif;}
+    .kicker{color:var(--brand);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:.5em;margin-bottom:.6em;}
+    .muted{color:var(--muted);}
+    .small{font-size:.62em;}
+    .xsmall{font-size:.5em;color:var(--muted);}
+    .grid{display:grid;gap:18px;}
+    .g2{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:1fr 1fr 1fr;}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;}
+    .card h3{color:#fff;margin:0 0 .35em;} .card .ico{font-size:1.6em;}
+    .pill{display:inline-block;background:rgba(0,212,160,.12);border:1px solid var(--brand);color:var(--brand);border-radius:999px;padding:4px 16px;font-size:.55em;font-weight:600;margin:0 6px 8px 0;}
+    .stat{font-size:2.1em;font-weight:800;color:var(--brand);line-height:1;}
+    .stat.b2{color:var(--brand2);} .stat.g{color:var(--gold);}
+    .statlbl{font-size:.5em;color:var(--muted);margin-top:.4em;}
+    .reveal table{font-size:.56em;border-collapse:collapse;width:100%;}
+    .reveal table th,.reveal table td{border:1px solid var(--line);padding:9px 10px;text-align:center;}
+    .reveal table th{background:var(--bg2);color:#fff;font-weight:700;}
+    .reveal table td:first-child,.reveal table th:first-child{text-align:left;}
+    .yes{color:var(--brand);font-weight:800;} .no{color:#5b6785;} .part{color:var(--gold);}
+    .tw-col{color:var(--brand)!important;font-weight:800;}
+    .footer{position:absolute;bottom:14px;left:40px;right:40px;font-size:.42em;color:var(--muted);display:flex;justify-content:space-between;}
+    .fill{color:var(--gold);font-weight:600;}
+    .logo{display:flex;align-items:center;gap:14px;}
+    .logo .mark{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1em;color:#03131c;}
+    .lead{font-size:1.15em;color:var(--muted);max-width:20ch;}
+    ul.tight li{margin:.28em 0;}
+    .barrow{display:flex;align-items:center;gap:12px;margin:10px 0;}
+    .barrow .lab{width:140px;font-size:.55em;color:var(--muted);}
+    .bar{height:26px;border-radius:6px;background:linear-gradient(90deg,var(--brand2),var(--brand));}
+    .bar.sam{background:linear-gradient(90deg,#2a3a5e,var(--brand2));}
+    .bar.som{background:linear-gradient(90deg,#1c2740,var(--gold));}
+    .reveal .slide-number{background:transparent;color:var(--muted);font-size:12px;}
+    .hl{background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  </style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <!-- 1 TITLE -->
+  <section data-background-gradient="radial-gradient(circle at 30% 20%, #12213f 0%, #0a0e1a 60%)">
+    <div class="logo" style="margin-bottom:40px;">
+      <div class="mark ar">ت</div>
+      <div>
+        <h1 style="margin:0;">Tasweeq <span class="ar" style="font-size:.6em;color:var(--muted);">تسويق</span></h1>
+      </div>
+    </div>
+    <p class="lead" style="max-width:28ch;font-size:1.3em;color:#fff;">The influencer marketing OS for MENA.</p>
+    <p style="font-size:1.1em;margin-top:6px;"><em>Search</em> creators · <em>Manage</em> campaigns · <em>Compare</em> competitors</p>
+    <p class="muted small" style="margin-top:40px;">Find the right creators, run the whole campaign, and see exactly what your competitors are doing — in one Arabic-first platform.</p>
+    <div class="footer"><span>Investor Deck · <span class="fill">[Round] · Raising $[FILL]</span></span><span>Riyadh · Dubai · [contact]</span></div>
+  </section>
+
+  <!-- 2 PROBLEM -->
+  <section>
+    <div class="kicker">The Problem</div>
+    <h2>MENA brands run influencer campaigns blind, across 3 disconnected tools.</h2>
+    <div class="grid g2" style="margin-top:24px;">
+      <div class="card"><span class="ico">🔎</span><h3>Discovery is guesswork</h3><p class="small muted">Global databases are weak on Arabic, dialects & local platforms (Snapchat, TikTok-Arab). Shortlisting still happens over DMs, spreadsheets & agencies with opaque pricing.</p></div>
+      <div class="card"><span class="ico">📋</span><h3>Campaigns live in chaos</h3><p class="small muted">Outreach, approvals, contracts, content review, payments & reporting scattered across inboxes — unscalable past ~10–15 creators.</p></div>
+      <div class="card"><span class="ico">📊</span><h3>Zero competitive visibility</h3><p class="small muted">Brands can't see which creators competitors use, what they spend, or share of voice — the most-requested, least-served insight.</p></div>
+      <div class="card" style="border-color:var(--danger);"><span class="ico">⚠️</span><h3>Compliance risk</h3><p class="small muted">In KSA, using an unlicensed (non-Mawthooq) creator carries fines up to <strong style="color:var(--danger)">SAR 5M</strong>. Current tools don't flag it.</p></div>
+    </div>
+    <div class="footer"><span>Tasweeq</span><span>The Problem</span></div>
+  </section>
+
+  <!-- 3 SOLUTION -->
+  <section>
+    <div class="kicker">The Solution</div>
+    <h2>One MENA-native workflow. Three jobs, unified.</h2>
+    <table style="margin-top:18px;">
+      <thead><tr><th>Pillar</th><th>What it does</th><th>Replaces</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tw-col">🔎 Search</span></td><td>Arabic/English brief → ranked, verified creators. Filters: geo, dialect, engagement, fake-follower score, <strong>Mawthooq status</strong>.</td><td>Modash + manual DMs</td></tr>
+        <tr><td><span class="tw-col">📋 Manage</span></td><td>Shortlist → team feedback → approver gate → outreach → contracts → escrow payments → analytics.</td><td>Upfluence / GRIN + sheets</td></tr>
+        <tr><td><span class="tw-col">📊 Compare</span></td><td>Track any competitor's creator roster, est. spend/EMV, share of voice & content themes over time.</td><td>HypeAuditor / Kolsquare / Lucidya</td></tr>
+      </tbody>
+    </table>
+    <p class="small" style="margin-top:20px;"><em>The wedge:</em> a marketer types an Arabic brief → gets a compliance-checked, campaign-ready shortlist in minutes → benchmarks it against a rival. <span class="muted">Working MVP already live.</span></p>
+    <div class="footer"><span>Tasweeq</span><span>The Solution</span></div>
+  </section>
+
+  <!-- 4 WHY NOW -->
+  <section>
+    <div class="kicker">Why Now</div>
+    <h2>MENA's creator economy just became a regulated, funded, high-growth sector — and no software owns it yet.</h2>
+    <div class="grid g2" style="margin-top:22px;">
+      <div class="card"><h3>🏛️ Vision 2030</h3><p class="small muted">KSA targets <strong>SAR 47B (~$12.5B)</strong> media output & <strong>150,000 jobs</strong>. Creator economy is national policy.</p></div>
+      <div class="card"><h3>✅ Regulation = clean supply</h3><p class="small muted">Mawthooq (10,000+ licenses) cut the KSA commercial creator pool <strong>~35%</strong> — professional, verifiable creators. A compliance dataset foreign tools can't legally replicate.</p></div>
+      <div class="card"><h3>📱 Behavior</h3><p class="small muted">~99% internet penetration · ~70% under 35 · TikTok reaches ~88% of Saudis · world-leading Snapchat use. KSA creator economy grew <strong>~32% in Q1 2025</strong>.</p></div>
+      <div class="card"><h3>🏟️ Event supercycle</h3><p class="small muted">Riyadh Season → <strong>Expo 2030</strong> → <strong>World Cup 2034</strong>. Early entrants pay 2–3x less for equivalent reach.</p></div>
+    </div>
+    <div class="footer"><span class="xsmall">Sources: Arab News, GAMR/Mawthooq, Statista, Kolsquare</span><span>Why Now</span></div>
+  </section>
+
+  <!-- 5 MARKET -->
+  <section>
+    <div class="kicker">Market</div>
+    <h2>Big global tooling market — we win the GCC slice first.</h2>
+    <div style="margin-top:26px;">
+      <div class="barrow"><span class="lab">TAM · Global IM software</span><div class="bar" style="width:78%;"></div><span class="stat b2" style="font-size:1.1em;">~$26.5B</span></div>
+      <div class="barrow"><span class="lab">SAM · GCC influencer mkt</span><div class="bar sam" style="width:34%;"></div><span class="stat g" style="font-size:1.1em;">$315M→$772M</span></div>
+      <div class="barrow"><span class="lab">SOM · KSA+UAE (18 mo)</span><div class="bar som" style="width:14%;"></div><span class="stat" style="font-size:1.1em;color:var(--gold);">$[FILL]</span></div>
+    </div>
+    <div class="grid g3" style="margin-top:26px;">
+      <div class="card small"><strong class="hl">TAM</strong><br/><span class="muted">Global IM software/tooling ~$26.5B (2026), +20%/yr; creator economy → ~$480B by 2027.</span></div>
+      <div class="card small"><strong class="hl">SAM</strong><br/><span class="muted">GCC $315.5M (2025) → $771.6M (2032) @ 13.9% CAGR. KSA ~40%, UAE fastest-growing.</span></div>
+      <div class="card small"><strong class="hl">SOM</strong><br/><span class="muted"><span class="fill">[FILL]</span> N brands/agencies × <span class="fill">$[FILL]</span> ACV in KSA+UAE. Bottom-up.</span></div>
+    </div>
+    <div class="footer"><span class="xsmall">Sources: Mordor Intelligence, Goldman Sachs, PS Market Research/GII</span><span>Market</span></div>
+  </section>
+
+  <!-- 6 TRACTION -->
+  <section>
+    <div class="kicker">Traction</div>
+    <h2>Live product. Early proof. <span class="fill" style="font-size:.6em;">[replace with real numbers]</span></h2>
+    <div class="grid g2" style="margin-top:20px;">
+      <div class="card"><h3>Shipped MVP</h3><p class="small muted">NL Arabic search · K-means creator ranking · shortlist + team feedback · approver gate · outreach templates · follower-normalized analytics · weekly category insights.</p></div>
+      <div class="card"><h3>Early signal <span class="fill">[FILL]</span></h3>
+        <p class="small muted"><span class="fill">[N]</span> design partners · <span class="fill">[X]</span> LOIs · <span class="fill">[Y]</span> paid pilots · <span class="fill">$[FILL]</span> MRR · <span class="fill">[FILL]%</span> MoM growth.</p></div>
+    </div>
+    <div class="card" style="margin-top:16px;"><p class="small">Funnel: <span class="fill">[FILL]</span> target teams → <span class="fill">[FILL]</span> conversations → <span class="fill">[FILL]</span> LOIs → <span class="fill">[FILL]</span> closed.</p></div>
+    <div class="footer"><span class="xsmall">Most-scrutinized slide — show MoM growth, retention, LOIs; no vanity totals.</span><span>Traction</span></div>
+  </section>
+
+  <!-- 7 BUSINESS MODEL -->
+  <section>
+    <div class="kicker">Business Model</div>
+    <h2>SaaS subscription + payments take-rate.</h2>
+    <div class="grid g3" style="margin-top:22px;">
+      <div class="card"><h3>Subscription</h3><p class="small muted">Tiered by seats × creators tracked × competitors benchmarked. Starter → Growth → Agency. Undercuts a stitched Modash+Upfluence+HypeAuditor stack.</p></div>
+      <div class="card"><h3>Take-rate</h3><p class="small muted">~5% on payments/escrow run through Tasweeq — usage upside on top of subscription.</p></div>
+      <div class="card"><h3>Expansion</h3><p class="small muted">Land on Search → expand into Manage + Compare seats & more tracked competitors. NRR story.</p></div>
+    </div>
+    <div class="grid g3" style="margin-top:20px;text-align:center;">
+      <div><div class="stat">≥3:1</div><div class="statlbl">Target LTV : CAC</div></div>
+      <div><div class="stat b2 fill" style="color:var(--gold)">[FILL]</div><div class="statlbl">Payback (months)</div></div>
+      <div><div class="stat g">75–85%</div><div class="statlbl">Gross margin (SaaS)</div></div>
+    </div>
+    <div class="footer"><span>Tasweeq</span><span>Business Model</span></div>
+  </section>
+
+  <!-- 8 GTM -->
+  <section>
+    <div class="kicker">Go-to-Market</div>
+    <h2>Compare is the demand magnet. Land, then expand.</h2>
+    <div class="grid g2" style="margin-top:22px;">
+      <div class="card"><h3>Beachhead</h3><p class="small muted">KSA + UAE brand marketing teams & boutique influencer agencies. Agencies = multiplier: one account, many campaigns.</p></div>
+      <div class="card"><h3>Wedge motion</h3><p class="small muted">Free/low-cost <strong>competitor benchmark report</strong> → converts into paid Search + Manage seats.</p></div>
+      <div class="card"><h3>Channels</h3><p class="small muted">Founder-led agency sales · Arabic-SEO benchmark content · Mawthooq/Chamber & Snap/TikTok marketplace partnerships. <span class="fill">[FILL specifics]</span></p></div>
+      <div class="card"><h3>Timing</h3><p class="small muted">Campaign pushes aligned to the Saudi calendar — Ramadan, Riyadh Season, National Day, Founding Day.</p></div>
+    </div>
+    <div class="footer"><span>Tasweeq</span><span>Go-to-Market</span></div>
+  </section>
+
+  <!-- 9 COMPETITION -->
+  <section>
+    <div class="kicker">Competition</div>
+    <h2>Nobody offers Search + Manage + Compare in one Arabic-first product.</h2>
+    <table style="margin-top:16px;">
+      <thead><tr><th>Capability</th><th>Modash</th><th>CreatorIQ</th><th>HypeAuditor</th><th>Lucidya</th><th>MoonTech</th><th class="tw-col">Tasweeq</th></tr></thead>
+      <tbody>
+        <tr><td>Search / discovery</td><td class="yes">●</td><td class="yes">●</td><td class="yes">●</td><td class="part">◐</td><td class="yes">●</td><td class="yes">●</td></tr>
+        <tr><td>Manage (end-to-end)</td><td class="part">◐</td><td class="yes">●</td><td class="no">✗</td><td class="no">✗</td><td class="yes">●</td><td class="yes">●</td></tr>
+        <tr><td>Compare / benchmarking</td><td class="no">✗</td><td class="part">◐</td><td class="yes">●</td><td class="yes">●</td><td class="no">✗</td><td class="yes">●</td></tr>
+        <tr><td>All three in one flow</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="part">◐</td><td class="yes">●</td></tr>
+        <tr><td>Arabic-first / dialect NLP</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">●</td><td class="part">◐</td><td class="yes">●</td></tr>
+        <tr><td>Mawthooq / GCC compliance</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="part">◐</td><td class="yes">●</td></tr>
+        <tr><td>SMB self-serve pricing</td><td class="yes">●</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">●</td><td class="yes">●</td></tr>
+      </tbody>
+    </table>
+    <p class="xsmall" style="margin-top:14px;"><strong style="color:var(--ink)">Moats:</strong> Arabic dialect NLP · Mawthooq compliance/verification graph · the <em>Compare</em> data flywheel (every campaign enriches benchmark data) · local payment rails + GTM.</p>
+    <div class="footer"><span class="xsmall">● strong · ◐ partial · ✗ weak/absent — verify before presenting</span><span>Competition</span></div>
+  </section>
+
+  <!-- 10 TEAM -->
+  <section>
+    <div class="kicker">Team</div>
+    <h2>Why us, why now.</h2>
+    <div class="grid g3" style="margin-top:24px;">
+      <div class="card"><h3 class="fill">[Founder / CEO]</h3><p class="small muted">[Earned insight: years running MENA influencer campaigns / marketing tech / creator economy. The unfair insight only you have.]</p></div>
+      <div class="card"><h3 class="fill">[Co-founder / CTO]</h3><p class="small muted">[What they've built & shipped — Arabic NLP, data pipelines, marketplace/payments.]</p></div>
+      <div class="card"><h3 class="fill">[Key hire / advisor]</h3><p class="small muted">[Relevant operator — GCC brand/agency network, regulatory, growth.]</p></div>
+    </div>
+    <p class="small muted" style="margin-top:24px;">The bar: prove we understand the problem from the inside and are the team to win MENA specifically.</p>
+    <div class="footer"><span>Tasweeq</span><span>Team</span></div>
+  </section>
+
+  <!-- 11 FINANCIALS -->
+  <section>
+    <div class="kicker">Financials</div>
+    <h2>Credible path, tied to assumptions.</h2>
+    <div class="grid g3" style="margin-top:24px;text-align:center;">
+      <div><div class="stat fill" style="color:var(--gold)">$[FILL]</div><div class="statlbl">ARR — Year 1</div></div>
+      <div><div class="stat b2 fill" style="color:var(--brand2)">$[FILL]</div><div class="statlbl">ARR — Year 2</div></div>
+      <div><div class="stat fill">$[FILL]</div><div class="statlbl">ARR — Year 3</div></div>
+    </div>
+    <div class="card" style="margin-top:26px;"><p class="small muted">Drivers: <span class="fill">[# accounts × ACV × expansion × take-rate]</span>. Unit economics turn positive at <span class="fill">[FILL]</span> on assumption <span class="fill">[FILL]</span>. Full model in the data room.</p></div>
+    <div class="footer"><span class="xsmall">Most-viewed VC slide (~23% of deck time) — show the driver table, not just a hockey stick.</span><span>Financials</span></div>
+  </section>
+
+  <!-- 12 ASK -->
+  <section data-background-gradient="radial-gradient(circle at 70% 30%, #10331f 0%, #0a0e1a 60%)">
+    <div class="kicker">The Ask</div>
+    <h1 style="font-size:1.9em;">Raising <span class="hl fill">$[FILL]</span></h1>
+    <p style="font-size:1.05em;">to reach <span class="fill">$[Y]M ARR</span> and <span class="fill">[N]</span> paying brands across <strong>KSA + UAE</strong> by <span class="fill">[Q/Year]</span> — with the <em>Compare</em> data moat in production.</p>
+    <div class="grid g3" style="margin-top:28px;">
+      <div class="card small"><strong style="color:#fff">Product</strong><br/><span class="muted">Compare data pipeline + Arabic NLP</span></div>
+      <div class="card small"><strong style="color:#fff">GTM</strong><br/><span class="muted">KSA/UAE sales + agency partnerships</span></div>
+      <div class="card small"><strong style="color:#fff">Data & compliance</strong><br/><span class="muted">Mawthooq/verification licensing</span></div>
+    </div>
+    <p class="small muted" style="margin-top:26px;">Runway: <span class="fill">[FILL] months</span> · Milestones: <span class="fill">[ARR / logos / markets]</span></p>
+    <div class="logo" style="margin-top:24px;"><div class="mark ar" style="width:40px;height:40px;font-size:.8em;">ت</div><strong>Tasweeq</strong><span class="muted small">· Search · Manage · Compare</span></div>
+    <div class="footer"><span class="fill">[contact@tasweeq.co] · [phone]</span><span>The Ask</span></div>
+  </section>
+
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash:true, slideNumber:'c/t', transition:'slide', backgroundTransition:'fade',
+    width:1280, height:720, margin:0.06, controls:true, progress:true
+  });
+</script>
+</body>
+</html>
